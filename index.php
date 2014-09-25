@@ -1,5 +1,4 @@
 <?php
-
 /** Error reporting */
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
@@ -24,21 +23,26 @@ require_once dirname(__FILE__) . '/php/Classes/PHPExcel/IOFactory.php';
 // $enlace = mysql_connect('localhost', 'root', 'tatateta');
 // mysql_select_db('puente_updates');
 
-
-$conn = pg_connect("dbname=publisher");
-if (!$conn) {
+$dsn = ""
+    . "host=ec2-54-243-239-159.compute-1.amazonaws.com "
+    . "dbname=dfkj9p50iil8ud "
+    . "user=dvskjuavjizljt "
+    . "port=5432 "
+    . "sslmode=require "
+    . "password=_XLgWjGz5k36gPdQZb1-dzggxB";
+$db = pg_connect($dsn);
+if (!$db) {
   echo "An error occurred.\n";
   exit;
 }
-var_dump($conn);die;
-$result = pg_query($conn, "SELECT * FROM autos");
+$result = pg_query($db, "SELECT * FROM autos");
 if (!$result) {
   echo "An error occurred.\n";
   exit;
 }
 
 while ($row = pg_fetch_row($result)) {
-  echo "Author: $row[0]  E-mail: $row[1]";
+  echo "row[0]: $row[0]  row[1]: $row[1]";
   echo "<br />\n";
 }
 die;
