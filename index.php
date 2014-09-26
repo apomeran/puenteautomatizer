@@ -84,14 +84,14 @@ for ($i = 2; $i <= $countRows; $i++) {
               
 }
 
-$result = pg_query($db, "SELECT m.name, mod.name, a.version, a.year, a.price FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id ORDER BY m.name, mod.name");
+$result = pg_query($db, "SELECT  m.name, mod.name, a.version, a.year, a.price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id ORDER BY m.name, mod.name");
 if (!$result) {
   echo "An error occurred.\n";
   exit;
 }
 
 while ($row = pg_fetch_row($result)) {
-  echo "$row[0] $row[1] $row[2] $row[3] - $$row[4]";
+  echo "$row[0] $row[1] $row[2] $row[3] - $$row[4] ---- $row[5]";
   echo "<br />\n";
 }
 
