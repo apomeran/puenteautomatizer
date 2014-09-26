@@ -25,28 +25,18 @@ require_once dirname(__FILE__) . '/php/Classes/PHPExcel/IOFactory.php';
 
 $dsn = ""
     . "host=ec2-54-243-239-159.compute-1.amazonaws.com "
-    . "dbname=dfkj9p50iil8ud "
-    . "user=dvskjuavjizljt "
+    . "dbname=d2qjrin3hr4b8b "
+    . "user=wbjkjbrpjaxwit "
     . "port=5432 "
     . "sslmode=require "
-    . "password=_XLgWjGz5k36gPdQZb1-dzggxB";
+    . "password=HI63Hu08lOA6LbWHHlw5ABmieD";
 $db = pg_connect($dsn);
 if (!$db) {
   echo "An error occurred.\n";
   exit;
 }
-$result = pg_query($db, "SELECT * FROM autos");
-if (!$result) {
-  echo "An error occurred.\n";
-  exit;
-}
 
-while ($row = pg_fetch_row($result)) {
-  echo "row[0]: $row[0]  row[1]: $row[1]";
-  echo "<br />\n";
-}
-die;
-$filename = "puente.xlsx";
+$filename = "puente.xls";
 if (!file_exists($filename)) {
     exit("No existe el archivo puente.XLS." . EOL);
 }
@@ -71,6 +61,7 @@ for ($i = 1; $i <= $countRows; $i++) {
 $compare = true;
 $initialize = false;
 $commitResults = false;
+$id_in_file = "(";
 for ($i = 2; $i <= $countRows; $i++) {
         $f_compra = $cells[$arrColumns[0]][$i];
         $tipo = $cells[$arrColumns[1]][$i];
@@ -86,10 +77,22 @@ for ($i = 2; $i <= $countRows; $i++) {
         $ubicacion = $cells[$arrColumns[11]][$i];
         $estado = $cells[$arrColumns[12]][$i];
         $idfoto = $cells[$arrColumns[13]][$i];
-		echo $idfoto . '<br>';
-        // $query = "INSERT INTO listado(fcompra,tipo,marca,modelo,ano,DOMINIO,COMBUSTIBLE,KILOMETROS,COLOR,PRECIO,ORIGEN,UBICACION,ESTADO,IDFOTO) VALUES ('$f_compra','$tipo','$marca','$modelo',$ano,'$dominio','$combustible','$km',
-            // '$color',$precio,'$origen','$ubicacion','$estado', $idfoto)";
-
-        // $result = mysql_query($query);
-        
+		if ($i!=2){
+			$id_in_file .= ",";
+		}
+		$id_in_file .= $idfoto;
+              
 }
+
+$result = pg_query($db, "SELECT m.name, mod.name, a.version, a.year, a.price FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id ORDER BY m.name, mod.name");
+if (!$result) {
+  echo "An error occurred.\n";
+  exit;
+}
+
+while ($row = pg_fetch_row($result)) {
+  echo "$row[0] $row[1] $row[2] $row[3] - $$row[4]";
+  echo "<br />\n";
+}
+
+//echo $id_in_file;
