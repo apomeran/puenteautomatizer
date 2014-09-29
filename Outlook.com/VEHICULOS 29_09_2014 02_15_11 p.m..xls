@@ -1,0 +1,508 @@
+<title>SoftCars</title>
+<script>
+var MSG_PERMISOS = "El usuario no tiene permisos suficientes para realizar esta operacion. Consulte con el Administrador del Sistema."
+var MSG_COMANDO = "No se puede ejecutar la accion desde el formulario que se encuentra abierto ó no ha seleccionado un item para realizar la accion."
+var MSG_ERROR_NO_EXISTE = "El registro ya no existe en la base de datos, posiblemente otro usuario lo ha borrado o editado."
+var MSG_SESSION = "La sesion ha superado el tiempo limite de operacion, para continuar trabajando con el sistema debera ingresar nuevamente."
+
+var PANTALLA_DEF = "75,*,0"
+var PANTALLA_FILTRO = "107,*,0"
+
+</script>
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+</head><title>SoftCars</title>
+<script>
+var MSG_PERMISOS = "El usuario no tiene permisos suficientes para realizar esta operacion. Consulte con el Administrador del Sistema."
+var MSG_COMANDO = "No se puede ejecutar la accion desde el formulario que se encuentra abierto ó no ha seleccionado un item para realizar la accion."
+var MSG_ERROR_NO_EXISTE = "El registro ya no existe en la base de datos, posiblemente otro usuario lo ha borrado o editado."
+var MSG_SESSION = "La sesion ha superado el tiempo limite de operacion, para continuar trabajando con el sistema debera ingresar nuevamente."
+
+var PANTALLA_DEF = "75,*,0"
+var PANTALLA_FILTRO = "107,*,0"
+
+</script>
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+</head>
+
+<SCRIPT language="JavaScript">
+  <!--
+
+function IsNumeric(strString)
+   //  check for valid numeric strings	
+   {
+   var strValidChars = "0123456789,.-";
+   var strChar;
+   var blnResult = true;
+
+   if (strString.length == 0) return false;
+
+   //  test strString consists of valid characters listed above
+   for (i = 0; i < strString.length && blnResult == true; i++)
+      {
+      strChar = strString.charAt(i);
+      if (strValidChars.indexOf(strChar) == -1)
+         {
+         blnResult = false;
+         }
+      }
+   return blnResult;
+   }
+  
+  // -->
+  
+  function IsDate(dateStr) {
+
+var datePat = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+var matchArray = dateStr.match(datePat); // is the format ok?
+
+if (matchArray == null) {
+return false;
+}
+
+month = matchArray[3]; // p@rse date into variables
+day = matchArray[1];
+year = matchArray[5];
+
+if (month < 1 || month > 12) { // check month range
+return false;
+}
+
+if (day < 1 || day > 31) {
+return false;
+}
+
+if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+alert("El mes "+month+" no tiene 31 dias!")
+return false;
+}
+
+if (month == 2) { // check for february 29th
+var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+if (day > 29 || (day==29 && !isleap)) {
+alert("Febrero de " + year + " no tiene " + day + " dias!");
+return false;
+}
+}
+return true; // date is valid
+}
+
+
+function pausa(millis) 
+{
+var date = new Date();
+var curDate = null;
+
+do { curDate = new Date(); } 
+while(curDate-date < millis);
+
+} 
+
+function RObj(ea){var LS="";var QS=new Object();var un="undefined";var x=null;var f="function";var n="number";var r="string";var e1="ERROR:Index out of range in\r\nRequest.QueryString";var e2="ERROR:Wrong number of arguments or invalid property assignment\r\nRequest.QueryString";var e3="ERROR:Object doesn't support this property or method\r\nRequest.QueryString.Key";var dU=window.decodeURIComponent?1:0;function Err(arg){if(ea){alert("Request Object:\r\n"+arg)}};function URID(t){var d="";if(t){for(var i=0;i<t.length;++i){var c=t.charAt(i);d+=(c=="+"?" ":c)}}return(dU?decodeURIComponent(d):unescape(d))};function OL(o){var l=0;for(var i in o){if(typeof o[i]!=f){l++}};return l};function AK(key){var auk=true;for(var u in QS){if(typeof QS[u]!=f&&u.toString().toLowerCase()==key.toLowerCase()){auk=false;return u}}if(auk){QS[key]=new Object();QS[key].toString=function(){return TS(QS[key])};QS[key].Count=function(){return OL(QS[key])};QS[key].Count.toString=function(){return OL(QS[key]).toString()};QS[key].Item=function(e){if(typeof e==un){return QS[key]}else {if(typeof e==n){var a=QS[key][Math.ceil(e)];if(typeof a==un){Err(e1+"(\""+key+"\").Item("+e+")")};return a}else {Err("ERROR:Expecting numeric input in\r\nRequest.QueryString(\""+key+"\").Item(\""+e+"\")")}}};QS[key].Item.toString=function(e){if(typeof e==un){return QS[key].toString()}else {var a=QS[key][e];if(typeof a==un){Err(e1+"(\""+key+"\").Item("+e+")")};return a.toString()}};QS[key].Key=function(e){var t=typeof e;if(t==r){var a=QS[key][e];return(typeof a!=un&&a&&a.toString()?e:"")}else {Err(e3+"("+(e?e:"")+")")}};QS[key].Key.toString=function(){return x}};return key};function AVTK(key,val){if(key!=""){var key=AK(key);var l=OL(QS[key]);QS[key][l+1]=val}};function TS(o){var s="";for(var i in o){var ty=typeof o[i];if(ty=="object"){s+=TS(o[i])}else if(ty!=f){s+=o[i]+", "}};var l=s.length;if(l>1){return(s.substring(0,l-2))}return(s==""?x:s)};function KM(k,o){var k=k.toLowerCase();for(var u in o){if(typeof o[u]!=f&&u.toString().toLowerCase()==k){return u}}}if(window.location&&window.location.search){LS=window.location.search;var l=LS.length;if(l>0){LS=LS.substring(1,l);var preAmpAt=0;var ampAt=-1;var eqAt=-1;var k=0;var skip=false;for(var i=0;i<l;++i){var c=LS.charAt(i);if(LS.charAt(preAmpAt)=="="||(preAmpAt==0&&i==0&&c=="=")){skip=true}if(c=="="&&eqAt==-1&&!skip){eqAt=i}if(c=="&"&&ampAt==-1){if(eqAt!=-1){ampAt=i}if(skip){preAmpAt=i+1};skip=false}if(ampAt>eqAt){AVTK(URID(LS.substring(preAmpAt,eqAt)),URID(LS.substring(eqAt+1,ampAt)));preAmpAt=ampAt+1;eqAt=ampAt=-1;++k}}if(LS.charAt(preAmpAt)!="="&&(preAmpAt!=0||i!=0||c!="=")){if(preAmpAt!=l){if(eqAt!=-1){AVTK(URID(LS.substring(preAmpAt,eqAt)),URID(LS.substring(eqAt+1,l)))}else if(preAmpAt!=l-1){AVTK(URID(LS.substring(preAmpAt,l)),"")}}if(l==1){AVTK(LS.substring(0,1),"")}}}};var TC=OL(QS);if(!TC){TC=0};QS.toString=function(){return LS.toString()};QS.Count=function(){return(TC?TC:0)};QS.Count.toString=function(){return(TC?TC.toString():"0")};QS.Item=function(e){if(typeof e==un){return LS}else {if(typeof e==n){var e=Math.ceil(e);var c=0;for(var i in QS){if(typeof QS[i]!=f&&++c==e){return QS[i]}};Err(e1+"().Item("+e+")")}else {return QS[KM(e,QS)]}};return x};QS.Item.toString=function(){return LS.toString()};QS.Key=function(e){var t=typeof e;if(t==n){var e=Math.ceil(e);var c=0;for(var i in QS){if(typeof QS[i]!=f&&++c==e){return i}}}else if(t==r){var e=KM(e,QS);var a=QS[e];return(typeof a!=un&&a&&a.toString()?e:"")}else {Err(e2+"().Key("+(e?e:"")+")")};Err(e1+"().Item("+e+")")};QS.Key.toString=function(){Err(e2+"().Key")};this.QueryString=function(k){if(typeof k==un){return QS}else {if(typeof k==n){return QS.Item(k)};var k=KM(k,QS);if(typeof QS[k]==un){t=new Object();t.Count=function(){return 0};t.Count.toString=function(){return "0"};t.toString=function(){return x};t.Item=function(e){return x};t.Item.toString=function(){return x};t.Key=function(e){Err(e3+"("+(e?e:"")+")")};t.Key.toString=function(){return x};return t}else {return QS[k]}}};this.QueryString.toString=function(){return LS.toString()};this.QueryString.Count=function(){return(TC?TC:0)};this.QueryString.Count.toString=function(){return(TC?TC.toString():"0")};this.QueryString.Item=function(e){if(typeof e==un){return LS.toString()}else {if(typeof e==n){var e=Math.ceil(e);var c=0;for(var i in QS){if(typeof QS[i]!=f&&++c==e){return QS[i]}};Err(e1+".Item("+e+")")}else {return QS[KM(e,QS)]}}if(typeof e==n){Err(e1+".Item("+e+")")};return x};this.QueryString.Item.toString=function(){return LS.toString()};this.QueryString.Key=function(e){var t=typeof e;if(t==n){var e=Math.ceil(e);var c=0;for(var i in QS){if(typeof QS[i]=="object"&&(++c==e)){return i}}}else if(t==r){var e=KM(e,QS);var a=QS[e];return(typeof a!=un&&a&&a.toString()?e:"")}else {Err(e2+".Key("+(e?e:"")+")")};Err(e1+".Item("+e+")")};this.QueryString.Key.toString=function(){Err(e2+".Key")};this.Version=1.4;this.Author="Andrew Urquhart (http://andrewu.co.uk)"};var Request=new RObj(false);
+
+function CARGAPAGINA(marco,page)
+{
+	window.parent.frames[marco].location.href = page;
+}
+
+function CARGAR_DATOS(MARCO,PAGE)
+{
+		document.forms["formulario"].target = MARCO
+		document.forms["formulario"].action = PAGE
+		document.forms["formulario"].submit()
+}
+
+
+function PERMISOS(v1,v2,v3,v4,v5)
+{
+parent.frames["ENCABEZADOS"].document.forms["formulario"].AGREGAR.value = v1;
+parent.frames["ENCABEZADOS"].document.forms["formulario"].EDITAR.value = v2;
+parent.frames["ENCABEZADOS"].document.forms["formulario"].BORRAR.value = v3;
+parent.frames["ENCABEZADOS"].document.forms["formulario"].IMPRIMIR.value = v4;
+parent.frames["ENCABEZADOS"].document.forms["formulario"].EXCEL.value = v5;
+}
+
+var dFilterStep
+
+function dFilterStrip (dFilterTemp, dFilterMask)
+{
+    dFilterMask = replace(dFilterMask,'#','');
+    for (dFilterStep = 0; dFilterStep < dFilterMask.length++; dFilterStep++)
+		{
+		    dFilterTemp = replace(dFilterTemp,dFilterMask.substring(dFilterStep,dFilterStep+1),'');
+		}
+		return dFilterTemp;
+}
+
+function dFilterMax (dFilterMask)
+{
+ 		dFilterTemp = dFilterMask;
+    for (dFilterStep = 0; dFilterStep < (dFilterMask.length+1); dFilterStep++)
+		{
+		 		if (dFilterMask.charAt(dFilterStep)!='#')
+				{
+		        dFilterTemp = replace(dFilterTemp,dFilterMask.charAt(dFilterStep),'');
+				}
+		}
+		return dFilterTemp.length;
+}
+
+function dFilter (key, textbox, dFilterMask)
+{
+		dFilterNum = dFilterStrip(textbox.value, dFilterMask);
+		
+		if (key==9)
+		{
+		    return true;
+		}
+		else if (key==8&&dFilterNum.length!=0)
+		{
+		 	 	dFilterNum = dFilterNum.substring(0,dFilterNum.length-1);
+		}
+ 	  else if ( ((key>47&&key<58)||(key>95&&key<106)) && dFilterNum.length<dFilterMax(dFilterMask) )
+		{
+        dFilterNum=dFilterNum+String.fromCharCode(key);
+		}
+
+		var dFilterFinal='';
+    for (dFilterStep = 0; dFilterStep < dFilterMask.length; dFilterStep++)
+		{
+        if (dFilterMask.charAt(dFilterStep)=='#')
+				{
+					  if (dFilterNum.length!=0)
+					  {
+				        dFilterFinal = dFilterFinal + dFilterNum.charAt(0);
+					      dFilterNum = dFilterNum.substring(1,dFilterNum.length);
+					  }
+				    else
+				    {
+				        dFilterFinal = dFilterFinal + "";
+				    }
+				}
+		 		else if (dFilterMask.charAt(dFilterStep)!='#')
+				{
+				    dFilterFinal = dFilterFinal + dFilterMask.charAt(dFilterStep); 			
+				}
+//		    dFilterTemp = replace(dFilterTemp,dFilterMask.substring(dFilterStep,dFilterStep+1),'');
+		}
+
+
+		textbox.value = dFilterFinal;
+    return false;
+}
+
+function replace(fullString,text,by) {
+// Replaces text with by in string
+    var strLength = fullString.length, txtLength = text.length;
+    if ((strLength == 0) || (txtLength == 0)) return fullString;
+
+    var i = fullString.indexOf(text);
+    if ((!i) && (text != fullString.substring(0,txtLength))) return fullString;
+    if (i == -1) return fullString;
+
+    var newstr = fullString.substring(0,i) + by;
+
+    if (i+txtLength < strLength)
+        newstr += replace(fullString.substring(i+txtLength,strLength),text,by);
+
+    return newstr;
+}
+
+
+function PREVIEW(ID)
+{
+		parent.frames["PRINCIPAL"].document.forms["formulario"].ID.value = ID
+		parent.frames["PRINCIPAL"].document.forms["formulario"].target = "PRINCIPAL"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].action = "PREVIEW.asp"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].submit()
+}
+
+function printElem(options){
+$('#toPrint').printElement(options); }
+
+function _IMPRIMIR()
+{
+		try
+		{
+				factory.printing.header = "";
+				factory.printing.footer = "";
+				factory.printing.portrait = 0
+				factory.printing.leftMargin = 5.0;
+				factory.printing.topMargin = 5.0;
+				factory.printing.rightMargin = 5.0;
+				factory.printing.bottomMargin = 5.0;
+		}
+	    catch(err)
+		{
+		}
+
+		if (document.getElementById('controles')) { document.getElementById("controles").style.visibility='hidden' }
+    	$('#contenidoWeb').printElement({});
+		if (document.getElementById('controles')) { document.getElementById("controles").style.visibility='visible' }
+		
+		//document.getElementById('TABLA_IMPRIMIR').value = document.getElementById('TABLA_PRINCIPAL').innerHTML
+		//parent.frames["PRINCIPAL"].document.forms["formulario"].target = "PROCESOS"
+		//parent.frames["PRINCIPAL"].document.forms["formulario"].action = "IMPRIMIR.asp"
+		//parent.frames["PRINCIPAL"].document.forms["formulario"].submit()
+}
+
+function _IMPRIMIR_PREVIEW()
+{
+		parent.frames["PRINCIPAL"].document.forms["formulario"].target = "PROCESOS"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].action = "IMPRIMIR.PREVIEW.asp"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].submit()
+}
+
+function _EXCEL()
+{
+		parent.frames["ENCABEZADOS"].document.forms["formulario"].target = "PROCESOS"
+		parent.frames["ENCABEZADOS"].document.forms["formulario"].action = "EXCEL.asp"
+		parent.frames["ENCABEZADOS"].document.forms["formulario"].submit()
+}
+
+function _EXCEL_NEW()
+{
+		parent.frames["PRINCIPAL"].document.forms["formulario"].target = "PROCESOS"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].action = "EXCEL.asp"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].submit()
+}
+
+function _CLOSE()
+{
+		CARGAPAGINA("PROCESOS","../VACIO.ASP")
+		parent.frames["ENCABEZADOS"].document.forms["formulario"].target = "PRINCIPAL"
+		parent.frames["ENCABEZADOS"].document.forms["formulario"].action = "LISTADO.asp"
+		parent.frames["ENCABEZADOS"].document.forms["formulario"].submit()
+}
+
+function _GUARDAR() //FUNCION PARA GUARDAR REGISTRO
+{
+		parent.frames["PRINCIPAL"].document.forms["formulario"].target = "PROCESOS"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].action = "NUEVO.GUARDAR.ASP"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].submit()
+}
+
+function _EDITAR() //FUNCION PARA ACTUALIZAR REGISTRO
+{
+		parent.frames["PRINCIPAL"].document.forms["formulario"].target = "PROCESOS"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].action = "EDITAR.GUARDAR.ASP"
+		parent.frames["PRINCIPAL"].document.forms["formulario"].submit()
+}
+
+function checkAll(field,todos)
+{
+if (todos.checked == true) 
+	{	
+	for (i = 0; i < field.length; i++)
+		field[i].checked = true ;
+	}
+else
+	{
+	for (i = 0; i < field.length; i++)
+	field[i].checked = false ;
+	}
+}
+
+
+function f_VER_TODOS(accion)
+{
+		if (document.forms["formulario"].VER_TODOS.checked == true)
+		{
+			try {
+				parent.frames["ENCABEZADOS"].document.forms["formulario"].VER_TODOS.value = 1
+				} 
+			catch(e)
+				   {
+					document.forms["formulario"].VER_TODOS.value = 1
+				   }
+		}
+		else
+		{
+			try {
+				parent.frames["ENCABEZADOS"].document.forms["formulario"].VER_TODOS.value = 0
+				} 
+			catch(e)
+				   {
+					document.forms["formulario"].VER_TODOS.value = 0
+				   }
+		}
+
+		document.forms["formulario"].target = "_self"
+		document.forms["formulario"].action = accion
+		document.forms["formulario"].submit()
+}
+
+function FIRST_PAGE(accion)
+{
+		document.forms["formulario"].target = "_self"
+		document.forms["formulario"].action = accion
+		if (document.forms["formulario"].PAGINA_ACTUAL.value == 0)
+		{
+		}
+		else
+		{
+			document.forms["formulario"].PAGINA_ACTUAL.value = "0"
+			document.forms["formulario"].submit()
+		}
+}
+
+function LAST_PAGE(accion)
+{
+		document.forms["formulario"].target = "_self"
+		document.forms["formulario"].action = accion
+		if (document.forms["formulario"].PAGINA_ACTUAL.value == document.forms["formulario"].PAGINA_ULTIMA.value)
+		{
+		}
+		else
+		{
+			document.forms["formulario"].PAGINA_ACTUAL.value = document.forms["formulario"].PAGINA_ULTIMA.value
+			document.forms["formulario"].submit()
+		}
+}
+
+function NEXT_PAGE(accion)
+{
+		document.forms["formulario"].target = "_self"
+		document.forms["formulario"].action = accion
+		if (document.forms["formulario"].PAGINA_ACTUAL.value == document.forms["formulario"].PAGINA_ULTIMA.value)
+		{
+		}
+		else
+		{
+			document.forms["formulario"].PAGINA_ACTUAL.value = Number(document.forms["formulario"].PAGINA_ACTUAL.value) + 1
+			document.forms["formulario"].submit()
+		}
+}
+
+function PREV_PAGE(accion)
+{
+		document.forms["formulario"].target = "_self"
+		document.forms["formulario"].action = accion
+		if (document.forms["formulario"].PAGINA_ACTUAL.value == 0)
+		{
+		}
+		else
+		{
+			document.forms["formulario"].PAGINA_ACTUAL.value = Number(document.forms["formulario"].PAGINA_ACTUAL.value) - 1
+			document.forms["formulario"].submit()
+		}
+}
+
+
+function FILT()
+{
+	
+	parent.frames["ENCABEZADOS"].document.getElementById("ESTADO").value = document.getElementById("ESTADO").value;
+	parent.frames["ENCABEZADOS"].document.getElementById("ORIGEN").value = document.getElementById("ORIGEN").value;
+	parent.frames["ENCABEZADOS"].document.getElementById("NUEVOUSADO").value = document.getElementById("NUEVOUSADO").value;		
+
+	parent.frames["ENCABEZADOS"].document.forms["formulario"].target = "PRINCIPAL"
+	parent.frames["ENCABEZADOS"].document.forms["formulario"].action = "LISTADO.asp"
+	parent.frames["ENCABEZADOS"].document.forms["formulario"].submit()
+
+}
+
+function ORDENAR_TABLA(campo,accion)
+{
+/*
+		document.forms["formulario"].target = "_self"
+		document.forms["formulario"].action = accion
+		document.forms["formulario"].ORDEN_CAMPO.value = campo
+		if (document.forms["formulario"].ORDEN.value == 1)
+		{ document.forms["formulario"].ORDEN.value = 0 }
+		else
+		{document.forms["formulario"].ORDEN.value = 1 }
+		
+		document.forms["formulario"].submit();
+*/
+
+		if (document.forms["formulario"].VER_TODOS.checked == true)
+		{
+		
+			try {
+				parent.frames["ENCABEZADOS"].document.forms["formulario"].VER_TODOS.value = 1
+				} 
+			catch(e)
+				   {
+					document.forms["formulario"].VER_TODOS.value = 1
+				   }		
+		}
+		else
+		{
+			try {
+				parent.frames["ENCABEZADOS"].document.forms["formulario"].VER_TODOS.value = 0
+				} 
+			catch(e)
+				   {
+					document.forms["formulario"].VER_TODOS.value = 0
+				   }		
+		}
+
+
+			try {
+				parent.frames["ENCABEZADOS"].document.forms["formulario"].action = accion
+				parent.frames["ENCABEZADOS"].document.forms["formulario"].ORDEN_CAMPO.value = campo
+				} 
+			catch(e)
+				   {
+					document.forms["formulario"].action = accion
+					document.forms["formulario"].ORDEN_CAMPO.value = campo
+				   }
+				   		
+		
+			try {
+			
+					if ( parent.frames["ENCABEZADOS"].document.forms["formulario"].ORDEN.value == 1 )
+					{ parent.frames["ENCABEZADOS"].document.forms["formulario"].ORDEN.value = 0 }
+					else
+					{ parent.frames["ENCABEZADOS"].document.forms["formulario"].ORDEN.value = 1 }
+					
+					parent.frames["ENCABEZADOS"].document.forms["formulario"].submit();
+		
+					} 
+					
+			catch(e)
+			
+				   {
+					if ( document.forms["formulario"].ORDEN.value == 1 )
+					{ document.forms["formulario"].ORDEN.value = 0 }
+					else
+					{ document.forms["formulario"].ORDEN.value = 1 }
+					document.forms["formulario"].submit();
+				   }
+		
+
+
+}
+
+</script>
+
+
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tr bgcolor="#CCCCCC" height=20>
+
+<td width=130 align='left'><strong>F. COMPRA</strong></td>
+
+<td width=130 align='left'><strong>TIPO</strong></td>
+<td width=130 align='left'><strong>MARCA</strong></td>
+<td width=130 align='left'><strong>MODELO</strong></td>
+<td width=130 align='left'><strong>AÑO</strong></td>
+<td width=130 align='left'><strong>DOMINIO</strong></td>
+<td width=130 align='left'><strong>COMBUSTIBLE</strong></td>
+
+<td width=130 align='left'><strong>KILOMETROS</strong></td>
+<td width=130 align='left'><strong>COLOR</strong></td>
+
+
+<td width=150 align='left'><strong>PRECIO VENTA</strong></td>
+<td width=130 align='left'><strong>ORIGEN</strong></td>
+<td width=200 align='left'><strong>UBICACION</strong></td>
+<td width=130 align='left'><strong>ESTADO</strong></td>
+<td width=100 align='left'><strong>ID_FOTO</strong></td>
+</tr>
+<tr height=20><td width=130 align='left'>27/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>BORA TDI </td><td width=130 align='left'>2011</td><td width=130 align='left'>JJI601</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>113500</td><td width=130 align='left'>Gris</td><td width=130 align='left'>158000</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2464</td></tr><tr height=20><td width=130 align='left'>27/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Honda</td><td width=130 align='left'>CRV LX 2.4 AUTOMATICA </td><td width=130 align='left'>2009</td><td width=130 align='left'>IBG280</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>126000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>240000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2450</td></tr><tr height=20><td width=130 align='left'>25/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Mini</td><td width=130 align='left'>COOPER S AUTOMATICO</td><td width=130 align='left'>2006</td><td width=130 align='left'>FNZ897</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>59000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>219500</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2463</td></tr><tr height=20><td width=130 align='left'>24/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>CROSSFOX 1.6 TRENDLINE C/CUERO</td><td width=130 align='left'>2009</td><td width=130 align='left'>IFI134</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>25800</td><td width=130 align='left'>Gris Vulcano</td><td width=130 align='left'>129800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2460</td></tr><tr height=20><td width=130 align='left'>24/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>FOX 1.6 TRENDLINE 3 P</td><td width=130 align='left'>2007</td><td width=130 align='left'>FXR544</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>99000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>94000</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2461</td></tr><tr height=20><td width=130 align='left'>24/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Toyota</td><td width=130 align='left'>RAV 4 4X4 FULL AUTOMAYICA</td><td width=130 align='left'>2008</td><td width=130 align='left'>GWX584</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>74000</td><td width=130 align='left'>Negra</td><td width=130 align='left'>247500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2459</td></tr><tr height=20><td width=130 align='left'>24/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>CLIO 1.2 PACK PLUS 5 P</td><td width=130 align='left'>2010</td><td width=130 align='left'>JFY368</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>105000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>93000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2458</td></tr><tr height=20><td width=130 align='left'>23/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT XLS 1.6</td><td width=130 align='left'>2011</td><td width=130 align='left'>KBS526</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>41000</td><td width=130 align='left'>Negra</td><td width=130 align='left'>138000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2457</td></tr><tr height=20><td width=130 align='left'>20/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>PARTNER PATAGONICA HDI 1.6 VTC PLUS</td><td width=130 align='left'>2014</td><td width=130 align='left'>NWL830</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>4000</td><td width=130 align='left'>Gris Oscura</td><td width=130 align='left'>220000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2420</td></tr><tr height=20><td width=130 align='left'>19/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Toyota</td><td width=130 align='left'>ETIOS 1.5 XS 5 P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX011</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris</td><td width=130 align='left'>152500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2452</td></tr><tr height=20><td width=130 align='left'>19/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>PARTNER FURGON PRESENCE 1.6 HDI</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX012</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris</td><td width=130 align='left'>168500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2453</td></tr><tr height=20><td width=130 align='left'>19/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>208 FELINE 1.6 C/CUERO</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX013</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>210000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2454</td></tr><tr height=20><td width=130 align='left'>18/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Toyota</td><td width=130 align='left'>HILUX 3.0 SRV 4X4 D/CABINA</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX006</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>0km</td><td width=130 align='left'>Blanca</td><td width=130 align='left'>436500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2449</td></tr><tr height=20><td width=130 align='left'>18/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Toyota</td><td width=130 align='left'>COROLLA XEI 1.8 6 MT</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX000</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>243800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2451</td></tr><tr height=20><td width=130 align='left'>17/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT TITANIUM 1.6 MT</td><td width=130 align='left'>2013</td><td width=130 align='left'>MJW031</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>29000</td><td width=130 align='left'>Blanca</td><td width=130 align='left'>220800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2447</td></tr><tr height=20><td width=130 align='left'>17/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT 1.6 4X2 XLS</td><td width=130 align='left'>2008</td><td width=130 align='left'>GXK695</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>160000</td><td width=130 align='left'>Negra</td><td width=130 align='left'>114500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2446</td></tr><tr height=20><td width=130 align='left'>15/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>VENTO 2.0 T FSI ELEGANCE</td><td width=130 align='left'>2009</td><td width=130 align='left'>IEC110</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>95000</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>205500</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2443</td></tr><tr height=20><td width=130 align='left'>12/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Chevrolet</td><td width=130 align='left'>AVEO LT 1.6 4P</td><td width=130 align='left'>2011</td><td width=130 align='left'>JQK400</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>76000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>119300</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2441</td></tr><tr height=20><td width=130 align='left'>11/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Ford</td><td width=130 align='left'>FOCUS TREND 1.6 5 P</td><td width=130 align='left'>2011</td><td width=130 align='left'>JTL160</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>89000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>145500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2438</td></tr><tr height=20><td width=130 align='left'>10/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Fiat</td><td width=130 align='left'>FIORINO FIRE A.A DIR</td><td width=130 align='left'>2011</td><td width=130 align='left'>KTN532</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>83000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>98400</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2435</td></tr><tr height=20><td width=130 align='left'>10/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>CROSSFOX 1.6 TRENDLINE</td><td width=130 align='left'>2011</td><td width=130 align='left'>KLO393</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>19800</td><td width=130 align='left'>Negra</td><td width=130 align='left'>154500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2432</td></tr><tr height=20><td width=130 align='left'>10/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Ford</td><td width=130 align='left'>FIESTA AMBIENTE 1.6 5P</td><td width=130 align='left'>2011</td><td width=130 align='left'>KGS434</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>54000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>104500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2436</td></tr><tr height=20><td width=130 align='left'>10/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Fiat</td><td width=130 align='left'>PALIO ADVENTURE 1.6</td><td width=130 align='left'>2010</td><td width=130 align='left'>JEA184</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>83000</td><td width=130 align='left'>Gris Oscuro</td><td width=130 align='left'>115300</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2434</td></tr><tr height=20><td width=130 align='left'>10/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT TITANIUM 1.6 MT</td><td width=130 align='left'>2012</td><td width=130 align='left'>MBM809</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>15000</td><td width=130 align='left'>Rojo Marte</td><td width=130 align='left'>213000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2433</td></tr><tr height=20><td width=130 align='left'>08/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Honda</td><td width=130 align='left'>FIT EX</td><td width=130 align='left'>2008</td><td width=130 align='left'>GWU896</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>76000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>104500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2422</td></tr><tr height=20><td width=130 align='left'>05/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>RANGER 2 DC 4X2 XLT 3.2 D</td><td width=130 align='left'>2012</td><td width=130 align='left'>LMJ529</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>43000</td><td width=130 align='left'>Blanca</td><td width=130 align='left'>316000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2429</td></tr><tr height=20><td width=130 align='left'>05/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>GOL COUNTRY 1.6 TRENDLINE</td><td width=130 align='left'>2004</td><td width=130 align='left'>EOE391</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>180000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>75000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2430</td></tr><tr height=20><td width=130 align='left'>03/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>PARTNER PATAGONICA 1.6 HDI VTC PLUS</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX015</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>228000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2427</td></tr><tr height=20><td width=130 align='left'>02/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>CROSSFOX 1.6 CONFORLINE</td><td width=130 align='left'>2012</td><td width=130 align='left'>KZH988</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>62800</td><td width=130 align='left'>Gris</td><td width=130 align='left'>141500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2397</td></tr><tr height=20><td width=130 align='left'>02/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Citroen</td><td width=130 align='left'>C4 LOUNGE 2.0 16V TENDANCE</td><td width=130 align='left'>2013</td><td width=130 align='left'>NKG267</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>22000</td><td width=130 align='left'>Azul</td><td width=130 align='left'>215700</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2423</td></tr><tr height=20><td width=130 align='left'>02/09/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>SANDERO 1.6 16V CONFORT</td><td width=130 align='left'>2009</td><td width=130 align='left'>IKJ470</td><td width=130 align='left'>Nafta</td><td width=130 align='left'></td><td width=130 align='left'>Negro</td><td width=130 align='left'>95000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2425</td></tr><tr height=20><td width=130 align='left'>02/09/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT 1.6 XLS 4X2</td><td width=130 align='left'>2008</td><td width=130 align='left'>HLO557</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>99000</td><td width=130 align='left'>Negra</td><td width=130 align='left'>124500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2426</td></tr><tr height=20><td width=130 align='left'>27/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>CLIO MIO 3P CONFORT PLUS</td><td width=130 align='left'>2014</td><td width=130 align='left'>NYV262</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>1300</td><td width=130 align='left'>Bordo</td><td width=130 align='left'>121500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2417</td></tr><tr height=20><td width=130 align='left'>26/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>SURAN 1.6 CONFORLINE</td><td width=130 align='left'>2010</td><td width=130 align='left'>IOC802</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>69000</td><td width=130 align='left'>Negra</td><td width=130 align='left'>117000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2412</td></tr><tr height=20><td width=130 align='left'>23/08/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Renault</td><td width=130 align='left'>KANGOO CONFORT 1.6 5A CD DA CA SVT</td><td width=130 align='left'>2012</td><td width=130 align='left'>LUY078</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>17000</td><td width=130 align='left'>Azul</td><td width=130 align='left'>133000</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2410</td></tr><tr height=20><td width=130 align='left'>20/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Fiat</td><td width=130 align='left'>UNO 1,4 8 V FULL 5 P</td><td width=130 align='left'>2012</td><td width=130 align='left'>LAX686</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>44000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>117500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2403</td></tr><tr height=20><td width=130 align='left'>20/08/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>PARTNER PATAGONICA 1.6 VTC PLUS</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX010</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Cendre</td><td width=130 align='left'>221000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2404</td></tr><tr height=20><td width=130 align='left'>19/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Ford</td><td width=130 align='left'>KA 1.6 VIRAL</td><td width=130 align='left'>2011</td><td width=130 align='left'>KKH680</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>36000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>100500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2402</td></tr><tr height=20><td width=130 align='left'>15/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>207 COMPACT XT 1.6 5P</td><td width=130 align='left'>2009</td><td width=130 align='left'>IEO973</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>87000</td><td width=130 align='left'>Bordo</td><td width=130 align='left'>104800</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2399</td></tr><tr height=20><td width=130 align='left'>14/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Chevrolet</td><td width=130 align='left'>CELTA 1.4 LT 5P</td><td width=130 align='left'>2012</td><td width=130 align='left'>LAE328</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>31000</td><td width=130 align='left'>Rojo</td><td width=130 align='left'>104500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2398</td></tr><tr height=20><td width=130 align='left'>13/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>FLUENCE 2.0 16 V DINAMIQUE</td><td width=130 align='left'>2012</td><td width=130 align='left'>LKJ355</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>35000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>160000</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2394</td></tr><tr height=20><td width=130 align='left'>11/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Ford</td><td width=130 align='left'>FIESTA1.6  PLUS MP3</td><td width=130 align='left'>2013</td><td width=130 align='left'>MNV833</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Blanco</td><td width=130 align='left'>146000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2392</td></tr><tr height=20><td width=130 align='left'>11/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Chevrolet</td><td width=130 align='left'>SONIC 1.6 LT M/T 5 P</td><td width=130 align='left'>2012</td><td width=130 align='left'>LGW784</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>20500</td><td width=130 align='left'>Blanco</td><td width=130 align='left'>175300</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2393</td></tr><tr height=20><td width=130 align='left'>08/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Fiat</td><td width=130 align='left'>500 1.4 8 V CULT</td><td width=130 align='left'>2012</td><td width=130 align='left'>LAO661</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>45800</td><td width=130 align='left'>Rojo</td><td width=130 align='left'>146500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2386</td></tr><tr height=20><td width=130 align='left'>08/08/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>SAVEIRO 1.6 CAB EXT PACK ELECT </td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX093</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Blanca</td><td width=130 align='left'>177500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2385</td></tr><tr height=20><td width=130 align='left'>08/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>UP 1.0 MOVE 5P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX094</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Celeste</td><td width=130 align='left'>147800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2384</td></tr><tr height=20><td width=130 align='left'>07/08/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT SE 2.0 MT</td><td width=130 align='left'>2013</td><td width=130 align='left'>NEN402</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>221000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2391</td></tr><tr height=20><td width=130 align='left'>05/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>208 ALLURE 1.5 TOUCHSCREEN  C/NAV</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX099</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Mondust</td><td width=130 align='left'>195000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2375</td></tr><tr height=20><td width=130 align='left'>05/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>207 ACTIVE 1.4 5P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX095</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Negro</td><td width=130 align='left'>134500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2379</td></tr><tr height=20><td width=130 align='left'>05/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>208 ALLURE 1.5 TOUCHSCREEN C/NAV</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX098</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Blanco</td><td width=130 align='left'>195000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2376</td></tr><tr height=20><td width=130 align='left'>01/08/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Ford</td><td width=130 align='left'>ECOSPORT 2.0 4X2 XLT PLUS</td><td width=130 align='left'>2011</td><td width=130 align='left'>JUG865</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>80000</td><td width=130 align='left'>Gris</td><td width=130 align='left'>154000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2369</td></tr><tr height=20><td width=130 align='left'>01/08/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>VOYAGE 1.6 CONFORLINE PLUS</td><td width=130 align='left'>2012</td><td width=130 align='left'>LUA628</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>54000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>129800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2368</td></tr><tr height=20><td width=130 align='left'>30/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>408 ALLURE + 2.0 </td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX019</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Aluminio</td><td width=130 align='left'>247800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2363</td></tr><tr height=20><td width=130 align='left'>30/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>308 ACTIVE HDI 5 P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX020</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>0km</td><td width=130 align='left'>Negro</td><td width=130 align='left'>219000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2362</td></tr><tr height=20><td width=130 align='left'>30/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Ford</td><td width=130 align='left'>FOCUS 5 P 2.0 SE PLUS A/T</td><td width=130 align='left'>2014</td><td width=130 align='left'>OBQ267</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>1000</td><td width=130 align='left'>Blanco</td><td width=130 align='left'>316000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2360</td></tr><tr height=20><td width=130 align='left'>25/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Ford</td><td width=130 align='left'>KA 1.6 VIRAL</td><td width=130 align='left'>2009</td><td width=130 align='left'>IRG731</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>47000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>90800</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2348</td></tr><tr height=20><td width=130 align='left'>18/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Toyota</td><td width=130 align='left'>COROLLA XEI PACK 1.8 6MT</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX021</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Blanco</td><td width=130 align='left'>269000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2344</td></tr><tr height=20><td width=130 align='left'>11/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Fiat</td><td width=130 align='left'>UNO WAY 1.4 PACK ELECT PACK SEG</td><td width=130 align='left'>2011</td><td width=130 align='left'>KCP710</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>49000</td><td width=130 align='left'>Rojo</td><td width=130 align='left'>122800</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2334</td></tr><tr height=20><td width=130 align='left'>10/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Toyota</td><td width=130 align='left'>CAMRY V6</td><td width=130 align='left'>2008</td><td width=130 align='left'>HNU848</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>150000</td><td width=130 align='left'>Gris Oscuro</td><td width=130 align='left'>199500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2331</td></tr><tr height=20><td width=130 align='left'>08/07/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Honda</td><td width=130 align='left'>CRV LX 2.4 AUTOMATICA</td><td width=130 align='left'>2007</td><td width=130 align='left'>GGU487</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>118500</td><td width=130 align='left'>Beige</td><td width=130 align='left'>206000</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2329</td></tr><tr height=20><td width=130 align='left'>03/07/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>GOL 1.4 POWER A.A DIR 3P</td><td width=130 align='left'>2013</td><td width=130 align='left'>MBL404</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>34000</td><td width=130 align='left'>Gris Oscuro</td><td width=130 align='left'>99800</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2328</td></tr><tr height=20><td width=130 align='left'>28/06/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>308 FELINE HDI</td><td width=130 align='left'>2012</td><td width=130 align='left'>LPJ994</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>37000</td><td width=130 align='left'>Azul Borrasque</td><td width=130 align='left'>230500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2323</td></tr><tr height=20><td width=130 align='left'>19/06/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Chevrolet</td><td width=130 align='left'>AGILE LT + LLANTAS 5 P 1.4</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX033</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris</td><td width=130 align='left'>175500</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2312</td></tr><tr height=20><td width=130 align='left'>13/06/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Fiat</td><td width=130 align='left'>SIENA ESSENCE 1.6 16 V </td><td width=130 align='left'>2012</td><td width=130 align='left'>LFO484</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>57000</td><td width=130 align='left'>Beige Savanna</td><td width=130 align='left'>112000</td><td width=130 align='left'>Consignación</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2299</td></tr><tr height=20><td width=130 align='left'>12/06/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Toyota</td><td width=130 align='left'>HILUX 4X2 C/D SRV 3.0 TDI </td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX009</td><td width=130 align='left'>Gasoil</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>381000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2295</td></tr><tr height=20><td width=130 align='left'>12/06/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Toyota</td><td width=130 align='left'>ETIOS XLS 1.5 M/T 5 P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX022</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Bordo</td><td width=130 align='left'>163800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2296</td></tr><tr height=20><td width=130 align='left'>11/06/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>208 ACTIVE 1.5 5 P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX008</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gria Aluminio</td><td width=130 align='left'>174500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2294</td></tr><tr height=20><td width=130 align='left'>11/06/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>SANDERO STEPWAY CONFORT</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX004</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Verde Amazona</td><td width=130 align='left'>190800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2290</td></tr><tr height=20><td width=130 align='left'>16/04/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Toyota</td><td width=130 align='left'>COROLLA XEI PACK 1.8 MT</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX112</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Medio</td><td width=130 align='left'>269000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2225</td></tr><tr height=20><td width=130 align='left'>31/03/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>FLUENCE 2.0 16V DINAMIQUE</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX121</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris</td><td width=130 align='left'>223000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2206</td></tr><tr height=20><td width=130 align='left'>26/03/2014</td><td width=130 align='left'>Camioneta </td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>PARTNER PATAGONICA 1.6 VTC</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX118</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Grafito</td><td width=130 align='left'>206800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2192</td></tr><tr height=20><td width=130 align='left'>21/03/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>FLUENCE 2.0 16 V LUXE</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX110</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Plata</td><td width=130 align='left'>233500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2185</td></tr><tr height=20><td width=130 align='left'>17/03/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>207 COMPACT ALLURE 1.4 4P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX105</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Grafito</td><td width=130 align='left'>166000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2175</td></tr><tr height=20><td width=130 align='left'>17/03/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>207 COMPACT ALLURE 1.4 4P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX104</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Aluminio</td><td width=130 align='left'>166000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2174</td></tr><tr height=20><td width=130 align='left'>17/02/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Audi</td><td width=130 align='left'>A3 SPORTBACK 1.4T FSI</td><td width=130 align='left'>2010</td><td width=130 align='left'>JAP235</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>62000</td><td width=130 align='left'>Negro</td><td width=130 align='left'>233500</td><td width=130 align='left'>Permuta</td><td width=200 align='left'>Solon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2127</td></tr><tr height=20><td width=130 align='left'>24/01/2014</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>208 ALLURE 1.5 5 P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX050</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Azul Bourrasque</td><td width=130 align='left'>190000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2095</td></tr><tr height=20><td width=130 align='left'>18/12/2013</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>GOL TREND 1.6 PACK II 5P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX002</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Spectrus</td><td width=130 align='left'>154800</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2044</td></tr><tr height=20><td width=130 align='left'>17/12/2013</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Peugeot</td><td width=130 align='left'>208 ALLURE 1.5 5P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX30</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0km</td><td width=130 align='left'>Gris Aluminio</td><td width=130 align='left'>190000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>2035</td></tr><tr height=20><td width=130 align='left'>12/12/2013</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>VENTO 2.5 ADVANCE TIP</td><td width=130 align='left'>2007</td><td width=130 align='left'>GFZ143</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>85500</td><td width=130 align='left'>Gris</td><td width=130 align='left'>142500</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>1470</td></tr><tr height=20><td width=130 align='left'>03/12/2013</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Volkswagen</td><td width=130 align='left'>FOX CONFORT 3P</td><td width=130 align='left'>2014</td><td width=130 align='left'>XXX023</td><td width=130 align='left'>Nafta</td><td width=130 align='left'>0 Km</td><td width=130 align='left'>Gris Cuarzo</td><td width=130 align='left'>159000</td><td width=130 align='left'>Compra</td><td width=200 align='left'>Salon</td><td width=130 align='left'>Disponible</td><td width=130 align='left'>1990</td></tr><tr height=20><td width=130 align='left'>08/04/2013</td><td width=130 align='left'>Auto</td><td width=130 align='left'>Renault</td><td width=130 align='left'>GORDINI DA-3V</td><td width=130 align='left'>1969</td><td width=130 align='left'>SPD310</td><td width=130 align='left'>Nafta</td><td width=130 align='left'></td><td width=130 align='left'>Marron</td><td width=130 align='left'>70500</td><td width=130 align='left'>Consignación</td><td width=200 align='left'></td><td width=130 align='left'>Disponible</td><td width=130 align='left'>1508</td></tr>
+</table>

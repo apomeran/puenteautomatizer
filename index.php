@@ -62,6 +62,24 @@ $compare = true;
 $initialize = false;
 $commitResults = false;
 $id_in_file = "(";
+$id_in_db;
+
+/*CHECK NEW MODELS TO UPLOAD*/
+$result = pg_query($db, "SELECT a.id_img, m.name, mod.name, a.version, a.year, a.price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id WHERE a.id_img IS NOT NULL ORDER BY a.id_img");
+if (!$result) {
+  echo "An error occurred.\n";
+  exit;
+}
+while ($row = pg_fetch_row($result)) {
+  $id_in_db[] = $row[0];
+  $data_in_db[]['a'] = $row[1];
+  $data_in_db[]['b'] = $row[2];
+  $data_in_db[]['c'] = $row[3];
+  $data_in_db[]['d'] = $row[4];
+  $data_in_db[]['e'] = $row[5];
+  $data_in_db[]['f'] = $row[6];
+}
+
 for ($i = 2; $i <= $countRows; $i++) {
         $f_compra = $cells[$arrColumns[0]][$i];
         $tipo = $cells[$arrColumns[1]][$i];
@@ -76,23 +94,36 @@ for ($i = 2; $i <= $countRows; $i++) {
         $origen = $cells[$arrColumns[10]][$i];
         $ubicacion = $cells[$arrColumns[11]][$i];
         $estado = $cells[$arrColumns[12]][$i];
-        $idfoto = $cells[$arrColumns[13]][$i];
+        $idfoto = "" . $cells[$arrColumns[13]][$i] . "";
+		$idx = array_search($idfoto, $id_in_db);
+	
+		if (!in_array($idfoto,$id_in_db)){
+			echo "$marca $modelo $ano ". $km ."km $$precio.- <br>";
+		}else{
+			//var_dump($data_in_db[$idx]);
+			//die;
+		}
 		if ($i!=2){
 			$id_in_file .= ",";
 		}
 		$id_in_file .= $idfoto;
               
 }
+$id_in_file .= ")";
+/*END NEW MODELS TO UPLOAD*/
 
-$result = pg_query($db, "SELECT  m.name, mod.name, a.version, a.year, a.price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id ORDER BY m.name, mod.name");
+/*CHECK MODELS TO DELETE*/
+$result = pg_query($db, "SELECT  m.name, mod.name, a.version, a.year, a.price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id WHERE a.id_img NOT IN $id_in_file ORDER BY m.name, mod.name");
+
 if (!$result) {
   echo "An error occurred.\n";
   exit;
 }
-
+echo "Autos que hay que dar de baja: <br>" ;
 while ($row = pg_fetch_row($result)) {
   echo "$row[0] $row[1] $row[2] $row[3] - $$row[4] ---- $row[5]";
   echo "<br />\n";
 }
 
-//echo $id_in_file;
+/*END MODELS TO DELETE*/
+
