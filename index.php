@@ -106,7 +106,7 @@ for ($i = 2; $i <= $countRows; $i++) {
 		$idx = array_search($idfoto, $id_in_db);
 	
 		if (!in_array($idfoto,$id_in_db)){
-			$new_cars .= " $count_new_cars -  $marca $modelo $ano ". $km ."km $$precio.- <br>";
+			$new_cars .= " $count_new_cars - $marca $modelo $ano ". $km ."km $$precio.-  ---- *** $idfoto<br>";
 			$count_new_cars++;
 
 		}else{
@@ -149,4 +149,21 @@ while ($row = pg_fetch_row($result)) {
 }
 
 /*END MODELS TO DELETE*/
+
+/* CORRUPTED MODELS */
+
+$result = pg_query($db, "SELECT  m.name, mod.name, a.version, a.year, a.price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id WHERE a.id_img IS NULL ORDER BY m.name, mod.name");
+
+if (!$result) {
+  echo "An error occurred.\n";
+  exit;
+}
+echo "<br><br> Cars Corrupted: <br>" ;
+while ($row = pg_fetch_row($result)) {
+  echo "$row[0] $row[1] $row[2] $row[3] - $$row[4] ---- $row[5]";
+  echo "<br />\n";
+}
+
+
+/*END CORRUPTED MODELS*/
 
