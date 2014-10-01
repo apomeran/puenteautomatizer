@@ -65,21 +65,29 @@ $id_in_file = "(";
 $id_in_db;
 
 /*CHECK NEW MODELS TO UPLOAD*/
-$result = pg_query($db, "SELECT a.id_img, m.name, mod.name, a.version, a.year, a.price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id WHERE a.id_img IS NOT NULL ORDER BY a.id_img");
+$result = pg_query($db, "SELECT a.id_img as id_img, m.name as marca, mod.name as modelo, a.kilometers, a.color, a.version as version, a.year as ano, a.price as price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id WHERE a.id_img IS NOT NULL ORDER BY a.id_img");
 if (!$result) {
   echo "An error occurred.\n";
   exit;
 }
-while ($row = pg_fetch_row($result)) {
-  $id_in_db[] = $row[0];
-  $data_in_db[]['a'] = $row[1];
-  $data_in_db[]['b'] = $row[2];
-  $data_in_db[]['c'] = $row[3];
-  $data_in_db[]['d'] = $row[4];
-  $data_in_db[]['e'] = $row[5];
-  $data_in_db[]['f'] = $row[6];
+$i = 0;
+while ($row = pg_fetch_assoc($result)) {
+  $id_in_db[] = $row['id_img'];
+  $data_in_db[$i]['marca'] = $row['marca'];
+  $data_in_db[$i]['modelo'] = $row['modelo'];
+  $data_in_db[$i]['version'] = $row['version'];
+  $data_in_db[$i]['ano'] = $row['ano'];
+  $data_in_db[$i]['precio'] = $row['price'];
+  $data_in_db[$i]['km'] = $row['kilometers'];
+  if ($row['kilometers'] == 0)
+	$data_in_db[$i]['km'] = "0km";
+  $data_in_db[$i]['color'] = $row['color'];
+  $data_in_db[$i]['id'] = $row['id'];
+  $i++;
 }
-
+$count_new_cars = 0;
+$modified_car = "";
+$new_cars = "";
 for ($i = 2; $i <= $countRows; $i++) {
         $f_compra = $cells[$arrColumns[0]][$i];
         $tipo = $cells[$arrColumns[1]][$i];
@@ -98,10 +106,19 @@ for ($i = 2; $i <= $countRows; $i++) {
 		$idx = array_search($idfoto, $id_in_db);
 	
 		if (!in_array($idfoto,$id_in_db)){
-			echo "$marca $modelo $ano ". $km ."km $$precio.- <br>";
+			$new_cars .= " $count_new_cars -  $marca $modelo $ano ". $km ."km $$precio.- <br>";
+			$count_new_cars++;
+
 		}else{
-			//var_dump($data_in_db[$idx]);
-			//die;
+			$aux = $modified_car;
+		    if ($km != "" && $km != $data_in_db[$idx]['km'] && $km != '0 Km')
+				$modified_car .= "Changed KM from " . $data_in_db[$idx]['km'] ." to $km <br>";
+			if ($precio != $data_in_db[$idx]['precio'])
+				$modified_car .= "Changed Price from " . $data_in_db[$idx]['precio'] ." to $precio <br>";
+			if ($color != $data_in_db[$idx]['color'])
+				$modified_car .= "Changed Color from " . $data_in_db[$idx]['color'] ." to $color <br>";
+			if ($aux != $modified_car)
+				$modified_car .= "<b> Changes on: $marca $modelo $ano - ID: $idfoto </b><br><br> "; 
 		}
 		if ($i!=2){
 			$id_in_file .= ",";
@@ -110,6 +127,12 @@ for ($i = 2; $i <= $countRows; $i++) {
               
 }
 $id_in_file .= ")";
+
+echo "New Cars in Listing: <br>";
+echo $new_cars;
+echo "<br>Modified Cars in Listing: <br>";
+echo $modified_car;
+
 /*END NEW MODELS TO UPLOAD*/
 
 /*CHECK MODELS TO DELETE*/
@@ -119,7 +142,7 @@ if (!$result) {
   echo "An error occurred.\n";
   exit;
 }
-echo "Autos que hay que dar de baja: <br>" ;
+echo "Cars to Delete: <br>" ;
 while ($row = pg_fetch_row($result)) {
   echo "$row[0] $row[1] $row[2] $row[3] - $$row[4] ---- $row[5]";
   echo "<br />\n";
