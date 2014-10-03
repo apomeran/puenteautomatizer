@@ -4,7 +4,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('Europe/London');
+$log = false;
+$ignore_list[] = "";
 
+if ($log) {
+ob_start();
+}
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 $arrColumns = array(0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G',
     7 => 'H', 8 => 'I', 9 => 'J', 10 => 'K', 11 => 'L', 12 => 'M', 13 => 'N', 14 => 'O',
@@ -22,7 +27,6 @@ require_once dirname(__FILE__) . '/php/Classes/PHPExcel.php';
 require_once dirname(__FILE__) . '/php/Classes/PHPExcel/IOFactory.php';
 // $enlace = mysql_connect('localhost', 'root', 'tatateta');
 // mysql_select_db('puente_updates');
-
 $dsn = ""
     . "host=ec2-54-243-239-159.compute-1.amazonaws.com "
     . "dbname=d2qjrin3hr4b8b "
@@ -63,7 +67,6 @@ $initialize = false;
 $commitResults = false;
 $id_in_file = "(";
 $id_in_db;
-
 /*CHECK NEW MODELS TO UPLOAD*/
 $result = pg_query($db, "SELECT a.id_img as id_img, m.name as marca, mod.name as modelo, a.kilometers, a.color, a.version as version, a.year as ano, a.price as price, a.id FROM autos a INNER JOIN marcas m ON m.id = a.marca_id INNER JOIN modelos mod ON mod.id = a.modelo_id WHERE a.id_img IS NOT NULL ORDER BY a.id_img");
 if (!$result) {
@@ -89,6 +92,9 @@ $count_new_cars = 0;
 $modified_car = "";
 $new_cars = "";
 for ($i = 2; $i <= $countRows; $i++) {
+		$idfoto =  $cells[$arrColumns[13]][$i];
+		if (in_array($idfoto,$ignore_list))
+			continue;
         $f_compra = $cells[$arrColumns[0]][$i];
         $tipo = $cells[$arrColumns[1]][$i];
         $marca = $cells[$arrColumns[2]][$i];
@@ -102,7 +108,7 @@ for ($i = 2; $i <= $countRows; $i++) {
         $origen = $cells[$arrColumns[10]][$i];
         $ubicacion = $cells[$arrColumns[11]][$i];
         $estado = $cells[$arrColumns[12]][$i];
-        $idfoto = "" . $cells[$arrColumns[13]][$i] . "";
+    
 		$idx = array_search($idfoto, $id_in_db);
 	
 		if (!in_array($idfoto,$id_in_db)){
@@ -164,6 +170,11 @@ while ($row = pg_fetch_row($result)) {
   echo "<br />\n";
 }
 
-
 /*END CORRUPTED MODELS*/
 
+
+/*LOG TO A FILE*/
+if ($log) {
+	$content = '<html>' . ob_get_clean() . '</html>';
+	file_put_contents('stdout.html', $content);
+}
